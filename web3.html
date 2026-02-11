@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS 2026 | The Future</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700;900&display=swap');
+
+        :root {
+            --bg: #020617;
+            --accent: #0ea5e9;
+            --accent-glow: rgba(14, 165, 233, 0.5);
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background */
+        .ambient-glow {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw; height: 80vh;
+            background: radial-gradient(circle, #1e1b4b 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 2px; color: white; }
+        .logo span { color: var(--accent); }
+        .nav-links a { color: #94a3b8; text-decoration: none; margin-left: 2rem; transition: 0.3s; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--accent); }
+        .btn-nav { padding: 0.5rem 1.5rem; background: var(--accent); color: black; border-radius: 20px; font-weight: 600; }
+        .btn-nav:hover { box-shadow: 0 0 15px var(--accent-glow); }
+
+        /* Hero */
+        header {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+        h1 {
+            font-size: clamp(3rem, 6vw, 7rem);
+            font-family: 'Orbitron';
+            line-height: 1;
+            background: linear-gradient(to bottom, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: slideUp 1s ease-out;
+        }
+        .hero-sub { color: var(--accent); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 2rem; }
+        .hero-img {
+            width: 100%; max-width: 800px;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1614064641938-3bcee529cfc4?q=80&w=2832&auto=format&fit=crop') center/cover;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 0 50px rgba(14, 165, 233, 0.2);
+            margin-top: 2rem;
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+
+        /* Features Grid */
+        section { padding: 6rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-family: 'Orbitron'; font-size: 2rem; margin-bottom: 3rem; border-left: 4px solid var(--accent); padding-left: 1rem; }
+
+        .bento-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: var(--glass); border: 1px solid var(--border);
+            padding: 2rem; border-radius: 16px;
+            transition: 0.4s;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card h3 { font-family: 'Orbitron'; margin-bottom: 0.5rem; color: #e2e8f0; }
+        .card p { color: #94a3b8; line-height: 1.6; }
+        .card-lg { grid-column: span 2; background: linear-gradient(to right, rgba(14, 165, 233, 0.1), transparent); }
+        
+        @media(max-width: 768px) { .card-lg { grid-column: span 1; } }
+
+        /* Tech Specs Table */
+        .specs-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+        .specs-table td { padding: 1.5rem; border-bottom: 1px solid var(--border); color: #cbd5e1; }
+        .specs-table td:first-child { font-weight: 600; color: var(--accent); width: 30%; }
+
+        /* Newsletter */
+        .newsletter {
+            text-align: center; background: linear-gradient(135deg, #0f172a, #020617);
+            padding: 4rem; border-radius: 20px; border: 1px solid var(--border);
+        }
+        .input-group {
+            margin-top: 2rem; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+        }
+        input { padding: 1rem; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; width: 300px; }
+        button.action-btn {
+            padding: 1rem 2rem; background: var(--accent); border: none; border-radius: 8px;
+            color: black; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        button.action-btn:hover { background: white; }
+
+        footer { text-align: center; padding: 4rem 0; color: #475569; font-size: 0.8rem; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+
+    <nav>
+        <div class="logo">NEXUS<span>26</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#specs">Specs</a>
+            <a href="#preorder" class="btn-nav">Pre-Order</a>
+        </div>
+    </nav>
+
+    <header>
+        <p class="hero-sub">System Online // v.26.0</p>
+        <h1>BEYOND<br>IMAGINATION</h1>
+        <p style="color: #94a3b8; margin-top: 1rem; max-width: 500px;">The first neural-link compatible device. Glass, Graphene, and Pure Light.</p>
+        <div class="hero-img"></div>
+    </header>
+
+    <section id="features">
+        <h2 class="section-title">Performance Core</h2>
+        <div class="bento-grid">
+            <div class="card card-lg">
+                <h3>Quantum Chipset</h3>
+                <p>300% faster processing than previous generations using 3nm architecture.</p>
+            </div>
+            <div class="card">
+                <h3>Liquid Cooling</h3>
+                <p>A completely fanless, liquid-cooled chassis that never throttles.</p>
+            </div>
+            <div class="card">
+                <h3>80h Battery</h3>
+                <p>Solid-state graphene battery technology lasts nearly 4 days.</p>
+            </div>
+            <div class="card">
+                <h3>Holo-Display</h3>
+                <p>Project media 3 inches off the screen with zero glasses required.</p>
+            </div>
+            <div class="card">
+                <h3>200MP Lens</h3>
+                <p>Night vision capability and AI auto-correction built-in.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="specs">
+        <h2 class="section-title">Technical Specifications</h2>
+        <table class="specs-table">
+            <tr><td>Display</td><td>6.9" OLED Super-Retina XDR (144Hz)</td></tr>
+            <tr><td>Processor</td><td>N-26 Bionic Neural Engine</td></tr>
+            <tr><td>Memory</td><td>16GB / 32GB Unified Ram</td></tr>
+            <tr><td>Storage</td><td>1TB / 2TB NVMe</td></tr>
+            <tr><td>Camera</td><td>Triple Array (200MP Main, 50MP Ultra, 50MP Tele)</td></tr>
+            <tr><td>Build</td><td>Titanium Alloy Frame</td></tr>
+        </table>
+    </section>
+
+    <section id="preorder">
+        <div class="newsletter">
+            <h2 style="font-family: 'Orbitron'; margin-bottom: 1rem;">Secure Your Device</h2>
+            <p style="color: #94a3b8;">Limited supply for Q1 2026. Join the waitlist.</p>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Enter your email...">
+                <button class="action-btn" onclick="subscribe()">RESERVE NOW</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Nexus Industries. Designed for the Future. <br>
+        <a href="#" style="color:#475569">Privacy</a> &bull; <a href="#" style="color:#475569">Terms</a>
+    </footer>
+
+    <script>
+        function subscribe() {
+            const email = document.getElementById('email').value;
+            if(email.includes('@')) {
+                alert("Protocol Initiated. You are on the list for Nexus 26.");
+                document.getElementById('email').value = '';
+            } else {
+                alert("Error: Invalid Email Protocol.");
+            }
+        }
+    </script>
+</body>
+</html>
