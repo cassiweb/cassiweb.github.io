@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHROMA | Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;800&display=swap');
+
+        :root {
+            --bg: #050505;
+            --text: #f3f3f3;
+            --accent: #ff3333; /* Subtle red accent */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fixed Sidebar */
+        .sidebar {
+            position: fixed; top: 0; left: 0; width: 80px; height: 100vh;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+            padding: 2rem 0; z-index: 100; background: var(--bg);
+        }
+        .logo { writing-mode: vertical-rl; transform: rotate(180deg); font-weight: 800; letter-spacing: 5px; font-size: 1.2rem; }
+        .socials { display: flex; flex-direction: column; gap: 20px; font-size: 0.8rem; color: #666; }
+        .socials span:hover { color: white; cursor: pointer; }
+
+        /* Main Content */
+        main { margin-left: 80px; }
+
+        /* Parallax Hero */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2942&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            display: flex; flex-direction: column; justify-content: center; padding-left: 10%;
+        }
+        
+        h1 { font-size: clamp(3rem, 8vw, 8rem); line-height: 0.9; font-weight: 800; text-transform: uppercase; }
+        h1 span { -webkit-text-stroke: 1px white; color: transparent; }
+        .scroll-down { margin-top: 2rem; color: var(--accent); font-size: 0.9rem; letter-spacing: 2px; }
+
+        /* Gallery Grid */
+        .gallery-section { padding: 6rem 5%; }
+        .cat-title { font-size: 4rem; margin-bottom: 2rem; color: #222; font-weight: 800; text-transform: uppercase; }
+        
+        .photo-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;
+        }
+        
+        .photo-item { position: relative; overflow: hidden; height: 500px; cursor: pointer; }
+        .photo-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; filter: grayscale(50%);
+        }
+        .photo-item:hover img { transform: scale(1.1); filter: grayscale(0%); }
+        
+        .overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem;
+            background: linear-gradient(to top, black, transparent);
+            opacity: 0; transition: 0.4s;
+        }
+        .photo-item:hover .overlay { opacity: 1; }
+
+        /* Contact */
+        .contact { background: #111; padding: 6rem 10%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .contact-text h2 { font-size: 3rem; margin-bottom: 1rem; }
+        .btn-contact {
+            padding: 1rem 3rem; background: white; color: black; border: none;
+            font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        .btn-contact:hover { background: var(--accent); color: white; }
+
+        /* Lightbox (Hidden by default) */
+        .lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 1000;
+            display: none; justify-content: center; align-items: center;
+        }
+        .lightbox img { max-width: 90%; max-height: 90%; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        .close-lightbox { position: absolute; top: 2rem; right: 2rem; color: white; font-size: 2rem; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: 60px; flex-direction: row; padding: 0 2rem; border-right: none; border-bottom: 1px solid #333; }
+            .logo { transform: rotate(0); writing-mode: horizontal-tb; }
+            main { margin-left: 0; margin-top: 60px; }
+            .socials { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">CHROMA</div>
+        <div class="socials">
+            <span>IG</span>
+            <span>TW</span>
+            <span>BE</span>
+        </div>
+    </aside>
+
+    <main>
+        <section class="hero">
+            <h1>Capture<br><span>The Unseen</span></h1>
+            <div class="scroll-down">SCROLL TO EXPLORE &darr;</div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="cat-title">Selected Works</div>
+            <div class="photo-grid">
+                <div class="photo-item" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=2550&auto=format&fit=crop" alt="Portrait">
+                    <div class="overlay"><h3>Red Gaze</h3><p>Portrait Series</p></div>
+                </div>
+                <div class="photo-item" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2674&auto=format&fit=crop" alt="Nature">
+                    <div class="overlay"><h3>Mist</h3><p>Landscape</p></div>
+                </div>
+                <div class="photo-item" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=2940&auto=format&fit=crop" alt="Space">
+                    <div class="overlay"><h3>Cosmos</h3><p>Astrophotography</p></div>
+                </div>
+                <div class="photo-item" onclick="openLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?q=80&w=2550&auto=format&fit=crop" alt="Urban">
+                    <div class="overlay"><h3>Structure</h3><p>Architecture</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <div class="contact-text">
+                <h2>Let's create<br>something timeless.</h2>
+                <p style="color: #777; max-width: 400px;">Available for editorial, fashion, and commercial projects worldwide.</p>
+            </div>
+           <!-- <button class="btn-contact" onclick="alert('Contact form opened! (Simulated)')">Get in Touch</button> -->
+        </section>
+    </main>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="">
+    </div>
+
+    <script>
+        function openLightbox(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
